@@ -6,7 +6,7 @@ namespace ConcordNet.UnitTests
     public class ConcordHostTests
     {
         [Test]
-        public void ConstructingNewConcordHost_DoesNotThrowError()
+        public void GivenValidSetup_WhenCreatingNewHost_ThenHostIsCreated()
         {
             Assert.DoesNotThrow(() =>
             {

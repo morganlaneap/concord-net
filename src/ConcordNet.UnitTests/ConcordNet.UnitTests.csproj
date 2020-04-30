@@ -16,4 +16,11 @@
       <ProjectReference Include="..\ConcordNet\ConcordNet.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="TestFiles\website-api.json" />
+      <Content Include="TestFiles\website-api.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

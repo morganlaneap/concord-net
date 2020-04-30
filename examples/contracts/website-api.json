@@ -1,0 +1,18 @@
+{
+  "provider": "api",
+  "consumer": "website",
+  "contracts": [
+    {
+      "name": "Loads data successfully",
+      "scenario": "Data exists in the database",
+      "request": {
+        "url": "/data",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 200,
+        "headers": ["Content-Type: application/json"]
+      }
+    }
+  ]
+}
