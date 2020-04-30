@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet", "ConcordNet\ConcordNet.csproj", "{B48E6860-F113-4173-8386-20D784138754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet.UnitTests", "ConcordNet.UnitTests\ConcordNet.UnitTests.csproj", "{F357F679-3D70-461D-A059-DD66A22D3845}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B48E6860-F113-4173-8386-20D784138754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48E6860-F113-4173-8386-20D784138754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48E6860-F113-4173-8386-20D784138754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48E6860-F113-4173-8386-20D784138754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F357F679-3D70-461D-A059-DD66A22D3845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F357F679-3D70-461D-A059-DD66A22D3845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
