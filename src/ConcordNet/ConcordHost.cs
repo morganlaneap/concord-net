@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ConcordNet.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,17 +11,28 @@ namespace ConcordNet
     public class ConcordHost
     {
         private readonly int _testSeverPort;
+        
+        private readonly ContractParser _contractParser;
+        private readonly ContractDefinitionVerifier _contractDefinitionVerifier;
+        
+        public IHostBuilder TestServer { get; set; }
+        
+        public List<ContractDefinition> ContractDefinitions { get; set; }
 
         public ConcordHost(int testServerPort = 45678)
         {
             _testSeverPort = testServerPort;
+            _contractParser = new ContractParser();
+            _contractDefinitionVerifier = new ContractDefinitionVerifier(testServerPort);
+            
+            ContractDefinitions = new List<ContractDefinition>();
         }
 
-        public IHostBuilder RegisterTestServer<TStartupClass>(
+        public void RegisterTestServer<TStartupClass>(
             Action<IServiceCollection> dependencyInjectionConfiguration = null,
             IConfiguration applicationConfiguration = null) where TStartupClass : class
         {
-            return new HostBuilder().ConfigureWebHostDefaults(builder =>
+            TestServer = new HostBuilder().ConfigureWebHostDefaults(builder =>
             {
                 builder.UseStartup<TStartupClass>();
                 builder.UseUrls($"http://0.0.0.0:{_testSeverPort}");
@@ -34,6 +47,23 @@ namespace ConcordNet
                     builder.UseConfiguration(applicationConfiguration);
                 }
             });
+        }
+
+        public void AddContractDefinition(string filePath)
+        {
+            var contractDefinition = _contractParser.ParseFile(filePath);
+            ContractDefinitions.Add(contractDefinition);
+        }
+
+        public void VerifyContractDefinitions()
+        {
+            using (TestServer.StartAsync().GetAwaiter().GetResult())
+            {
+                foreach (var contractDefinition in ContractDefinitions)
+                {
+                    _contractDefinitionVerifier.Verify(contractDefinition).GetAwaiter().GetResult();
+                }
+            }
         }
     }
 }

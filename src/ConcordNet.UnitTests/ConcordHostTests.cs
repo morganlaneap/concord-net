@@ -11,8 +11,19 @@ namespace ConcordNet.UnitTests
             Assert.DoesNotThrow(() =>
             {
                 var concordHost = new ConcordHost();
-                var testServer = concordHost.RegisterTestServer<TestStartup>();
-                Assert.NotNull(testServer);
+                concordHost.RegisterTestServer<TestStartup>();
+                Assert.NotNull(concordHost.TestServer);
+            });
+        }
+
+        [Test]
+        public void GivenValidFile_WhenAddingAsContractDefinition_ThenFileIsAddedToList()
+        {
+            Assert.DoesNotThrow(() =>
+            {
+                var concordHost = new ConcordHost();
+                concordHost.AddContractDefinition("./TestFiles/website-api.json");
+                Assert.That(concordHost.ContractDefinitions.Count, Is.EqualTo(1));
             });
         }
     }

@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet", "ConcordNet\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet.UnitTests", "ConcordNet.UnitTests\ConcordNet.UnitTests.csproj", "{F357F679-3D70-461D-A059-DD66A22D3845}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi", "ExampleApi\ExampleApi.csproj", "{917B67C6-918B-49DC-8B25-E873ADDCFFA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi.ConcordTests", "ExampleApi.ConcordTests\ExampleApi.ConcordTests.csproj", "{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
