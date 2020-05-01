@@ -6,11 +6,11 @@ namespace ExampleApi.ConcordTests
     public class ConcordContractTests
     {
         [Test]
-        public void Verify()
+        public void VerifyContracts()
         {
             var concordHost = new ConcordHost();
             concordHost.RegisterTestServer<Startup>();
-            concordHost.AddContractDefinition(@"E:\Development\concord-net\examples\contracts\website-api.json");
+            concordHost.AddContractDefinition(@"E:\Development\concord-net\src\ConcordNet.UnitTests\TestFiles\website-api.json");
             concordHost.VerifyContractDefinitions();
         }
     }
