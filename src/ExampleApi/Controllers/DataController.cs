@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ExampleApi.Data;
 using ExampleApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,14 +9,17 @@ namespace ExampleApi.Controllers
     [Route("/data")]
     public class DataController : Controller
     {
+        private readonly DataProvider _dataProvider;
+        
+        public DataController(DataProvider dataProvider)
+        {
+            _dataProvider = dataProvider;
+        }
+        
         [HttpGet]
         public IActionResult GetData()
         {
-            return Ok(new List<ExampleData>
-            {
-                new ExampleData {Id = "123", Color = "Red"},
-                new ExampleData {Id = "789", Color = "Blue"}
-            });
+            return Ok(_dataProvider.GetData());
         }
     }
 }

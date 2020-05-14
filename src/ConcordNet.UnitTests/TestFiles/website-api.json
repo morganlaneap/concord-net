@@ -13,12 +13,12 @@
         "statusCode": 200,
         "body": [
           {
-            "id": "123",
-            "color": "Red"
+            "id": "ABC",
+            "color": "GREEN"
           },
           {
-            "id": "789",
-            "color": "Blue"
+            "id": "JKG",
+            "color": "ORANGE"
           }
         ]
       }
