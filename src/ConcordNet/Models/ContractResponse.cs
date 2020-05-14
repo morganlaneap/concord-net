@@ -11,5 +11,8 @@ namespace ConcordNet.Models
         
         [JsonProperty("headers")]
         public IEnumerable<string> Headers { get; set; }
+        
+        [JsonProperty("body")]
+        public object Body { get; set; }
     }
 }

@@ -11,7 +11,16 @@
       },
       "response": {
         "statusCode": 200,
-        "headers": ["Content-Type: application/json"]
+        "body": [
+          {
+            "id": "123",
+            "color": "Red"
+          },
+          {
+            "id": "789",
+            "color": "Blue"
+          }
+        ]
       }
     },
     {
@@ -22,8 +31,7 @@
         "method": "GET"
       },
       "response": {
-        "statusCode": 404,
-        "headers": ["Content-Type: application/json"]
+        "statusCode": 404
       }
     }
   ]

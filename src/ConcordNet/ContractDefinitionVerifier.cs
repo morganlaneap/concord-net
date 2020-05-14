@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using ConcordNet.Models;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace ConcordNet
@@ -28,6 +29,12 @@ namespace ConcordNet
                 var rawResponse = await _httpClient.SendAsync(httpRequest);
                 
                 Assert.That(rawResponse.StatusCode, Is.EqualTo(contract.Response.StatusCode));
+
+                if (contract.Response.Body != null)
+                {
+                    var rawResponseBody = JsonConvert.DeserializeObject(await rawResponse.Content.ReadAsStringAsync());
+                    Assert.That(rawResponseBody, Is.EqualTo(contract.Response.Body));
+                }
             }
         }
     }
