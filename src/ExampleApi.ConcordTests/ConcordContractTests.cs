@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using ConcordNet;
+using ConcordNet.Interfaces;
 using ExampleApi.Data;
 using ExampleApi.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,11 +11,13 @@ namespace ExampleApi.ConcordTests
 {
     public class ConcordContractTests
     {
+        private readonly ScenarioHandler _scenarioHandler = new ScenarioHandler();
+        
         [Test]
         public void VerifyContracts()
         {
             var concordHost = new ConcordHost();
-            concordHost.RegisterTestServer<Startup>(ConfigureDependencyInjection);
+            concordHost.RegisterTestServer<Startup>(ConfigureDependencyInjection, scenarioHandler: _scenarioHandler);
             concordHost.AddContractDefinition(@"../../../../ConcordNet.UnitTests/TestFiles/website-api.json");
             concordHost.VerifyContractDefinitions();
         }
@@ -21,18 +25,7 @@ namespace ExampleApi.ConcordTests
         private void ConfigureDependencyInjection(IServiceCollection services)
         {
             var dataProviderMock = new Mock<DataProvider>();
-            dataProviderMock.Setup(m => m.GetData()).Returns(new[]
-            {
-                new ExampleData
-                {
-                    Id = "ABC",
-                    Color = "GREEN"
-                }, new ExampleData
-                {
-                    Id = "JKG",
-                    Color = "ORANGE"
-                }
-            });
+            dataProviderMock.Setup(m => m.GetData()).Returns(() => _scenarioHandler.ExampleData);
 
             services.AddSingleton(dataProviderMock.Object);
         }

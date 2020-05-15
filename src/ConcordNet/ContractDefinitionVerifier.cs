@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ConcordNet.Interfaces;
 using ConcordNet.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -11,6 +12,8 @@ namespace ConcordNet
     {
         private readonly HttpClient _httpClient;
 
+        public IScenarioHandler ScenarioHandler { get; set; }
+
         public ContractDefinitionVerifier(int testServerPort)
         {
             _httpClient = new HttpClient {BaseAddress = new Uri($"http://localhost:{testServerPort}")};
@@ -20,6 +23,9 @@ namespace ConcordNet
         {
             foreach (var contract in contractDefinition.Contracts)
             {
+                // Setup our scenario first
+                ScenarioHandler?.RunScenario(contract.Scenario);
+
                 var httpRequest = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,

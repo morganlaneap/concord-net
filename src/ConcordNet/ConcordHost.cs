@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ConcordNet.Interfaces;
 using ConcordNet.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,7 @@ namespace ConcordNet
         private readonly ContractDefinitionVerifier _contractDefinitionVerifier;
         
         public IHostBuilder TestServer { get; set; }
-        
+
         public List<ContractDefinition> ContractDefinitions { get; set; }
 
         public ConcordHost(int testServerPort = 45678)
@@ -30,7 +31,7 @@ namespace ConcordNet
 
         public void RegisterTestServer<TStartupClass>(
             Action<IServiceCollection> dependencyInjectionConfiguration = null,
-            IConfiguration applicationConfiguration = null) where TStartupClass : class
+            IConfiguration applicationConfiguration = null, IScenarioHandler scenarioHandler = null) where TStartupClass : class
         {
             TestServer = new HostBuilder().ConfigureWebHostDefaults(builder =>
             {
@@ -47,6 +48,7 @@ namespace ConcordNet
                     builder.UseConfiguration(applicationConfiguration);
                 }
             });
+            _contractDefinitionVerifier.ScenarioHandler = scenarioHandler;
         }
 
         public void AddContractDefinition(string filePath)

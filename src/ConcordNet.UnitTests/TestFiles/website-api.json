@@ -4,7 +4,7 @@
   "contracts": [
     {
       "name": "Loads data successfully",
-      "scenario": "Data exists in the database",
+      "scenario": "Data with id 123 and color GREEN",
       "request": {
         "url": "/data",
         "method": "GET"
@@ -13,11 +13,41 @@
         "statusCode": 200,
         "body": [
           {
-            "id": "ABC",
+            "id": "123",
             "color": "GREEN"
-          },
+          }
+        ]
+      }
+    },
+    {
+      "name": "Loads data successfully",
+      "scenario": "Data with id XYZ and color RED",
+      "request": {
+        "url": "/data",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 200,
+        "body": [
           {
-            "id": "JKG",
+            "id": "XYZ",
+            "color": "RED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Loads data successfully",
+      "scenario": "Data with id GGGGGG and color ORANGE",
+      "request": {
+        "url": "/data",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 200,
+        "body": [
+          {
+            "id": "GGGGGG",
             "color": "ORANGE"
           }
         ]
