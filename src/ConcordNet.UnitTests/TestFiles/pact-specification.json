@@ -1,0 +1,32 @@
+﻿{
+  "consumer": {
+    "name": "website"
+  },
+  "provider": {
+    "name": "api"
+  },
+  "interactions": [
+    {
+      "description": "Loads data successfully",
+      "request": {
+        "method": "GET",
+        "path": "/data"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "123",
+            "color": "GREEN"
+          }
+        ]
+      },
+      "metadata": null
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using ConcordNet.Models.Pact;
 using Newtonsoft.Json;
 
 namespace ConcordNet.Models
@@ -14,5 +15,14 @@ namespace ConcordNet.Models
         
         [JsonProperty("body")]
         public object Body { get; set; }
+
+        public static ContractResponse FromPactInteractionResponse(Response response)
+        {
+            return new ContractResponse
+            {
+                StatusCode = (HttpStatusCode)response.Status,
+                Body = response.Body
+            };
+        }
     }
 }

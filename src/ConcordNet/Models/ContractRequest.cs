@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConcordNet.Models.Pact;
+using Newtonsoft.Json;
 
 namespace ConcordNet.Models
 {
@@ -9,5 +10,14 @@ namespace ConcordNet.Models
         
         [JsonProperty("method")]
         public string Method { get; set; }
+
+        public static ContractRequest FromPactInteractionRequest(Request request)
+        {
+            return new ContractRequest
+            {
+                Url = request.Path,
+                Method = request.Method
+            };
+        }
     }
 }

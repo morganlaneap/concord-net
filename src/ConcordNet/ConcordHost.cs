@@ -51,9 +51,9 @@ namespace ConcordNet
             _contractDefinitionVerifier.ScenarioHandler = scenarioHandler;
         }
 
-        public void AddContractDefinition(string filePath)
+        public void AddContractDefinition(string filePath, bool isPactFile = false)
         {
-            var contractDefinition = _contractParser.ParseFile(filePath);
+            var contractDefinition = _contractParser.ParseFile(filePath, isPactFile);
             ContractDefinitions.Add(contractDefinition);
         }
 

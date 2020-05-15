@@ -21,6 +21,10 @@
       <Content Include="TestFiles\website-api.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="TestFiles\pact-specification.json" />
+      <Content Include="TestFiles\pact-specification.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
