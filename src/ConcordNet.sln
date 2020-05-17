@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi.ConcordTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi", "ConsumerApi\ConsumerApi.csproj", "{204DD650-7801-4813-9942-6AE32EAD99E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi.ConcordTests", "ConsumerApi.ConcordTests\ConsumerApi.ConcordTests.csproj", "{80477E8F-099E-48CF-939F-7B446C97985E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80477E8F-099E-48CF-939F-7B446C97985E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80477E8F-099E-48CF-939F-7B446C97985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80477E8F-099E-48CF-939F-7B446C97985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80477E8F-099E-48CF-939F-7B446C97985E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
