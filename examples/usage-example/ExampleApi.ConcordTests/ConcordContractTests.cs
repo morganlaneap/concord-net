@@ -18,7 +18,7 @@ namespace ExampleApi.ConcordTests
         {
             var concordHost = new ConcordHost();
             concordHost.RegisterTestServer<Startup>(ConfigureDependencyInjection, scenarioHandler: _scenarioHandler);
-            concordHost.AddContractDefinition(@"../../../../ConcordNet.UnitTests/TestFiles/website-api.json");
+            concordHost.AddContractDefinition(@"../../../../../../src/ConcordNet.UnitTests/TestFiles/website-api.json");
             concordHost.VerifyContractDefinitions();
         }
 

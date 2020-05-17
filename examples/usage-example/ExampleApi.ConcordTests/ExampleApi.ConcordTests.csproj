@@ -14,8 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ConcordNet\ConcordNet.csproj" />
-      <ProjectReference Include="..\ConsumerApi\ConsumerApi.csproj" />
+      <ProjectReference Include="..\..\..\src\ConcordNet\ConcordNet.csproj" />
+      <ProjectReference Include="..\ExampleApi\ExampleApi.csproj" />
     </ItemGroup>
 
 </Project>

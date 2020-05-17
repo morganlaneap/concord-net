@@ -4,13 +4,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet", "ConcordNet\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcordNet.UnitTests", "ConcordNet.UnitTests\ConcordNet.UnitTests.csproj", "{F357F679-3D70-461D-A059-DD66A22D3845}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi", "ExampleApi\ExampleApi.csproj", "{917B67C6-918B-49DC-8B25-E873ADDCFFA8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DAE8C222-A82C-480B-956B-AA72A144E53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi.ConcordTests", "ExampleApi.ConcordTests\ExampleApi.ConcordTests.csproj", "{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi", "..\examples\usage-example\ExampleApi\ExampleApi.csproj", "{8A49A8E4-4F84-4E6F-8E60-9028785035F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi", "ConsumerApi\ConsumerApi.csproj", "{204DD650-7801-4813-9942-6AE32EAD99E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApi.ConcordTests", "..\examples\usage-example\ExampleApi.ConcordTests\ExampleApi.ConcordTests.csproj", "{B9D27D5D-0B74-438C-A408-A2634540AC11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi.ConcordTests", "ConsumerApi.ConcordTests\ConsumerApi.ConcordTests.csproj", "{80477E8F-099E-48CF-939F-7B446C97985E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi", "..\examples\consumer-example\ConsumerApi\ConsumerApi.csproj", "{204DD650-7801-4813-9942-6AE32EAD99E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi.ConcordTests", "..\examples\consumer-example\ConsumerApi.ConcordTests\ConsumerApi.ConcordTests.csproj", "{80477E8F-099E-48CF-939F-7B446C97985E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +28,14 @@ Global
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F357F679-3D70-461D-A059-DD66A22D3845}.Release|Any CPU.Build.0 = Release|Any CPU
-		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{917B67C6-918B-49DC-8B25-E873ADDCFFA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F202010-9A9A-438D-A6D9-562C3CEE0F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A49A8E4-4F84-4E6F-8E60-9028785035F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A49A8E4-4F84-4E6F-8E60-9028785035F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A49A8E4-4F84-4E6F-8E60-9028785035F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A49A8E4-4F84-4E6F-8E60-9028785035F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D27D5D-0B74-438C-A408-A2634540AC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D27D5D-0B74-438C-A408-A2634540AC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D27D5D-0B74-438C-A408-A2634540AC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D27D5D-0B74-438C-A408-A2634540AC11}.Release|Any CPU.Build.0 = Release|Any CPU
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204DD650-7801-4813-9942-6AE32EAD99E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,5 +44,11 @@ Global
 		{80477E8F-099E-48CF-939F-7B446C97985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80477E8F-099E-48CF-939F-7B446C97985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80477E8F-099E-48CF-939F-7B446C97985E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A49A8E4-4F84-4E6F-8E60-9028785035F7} = {DAE8C222-A82C-480B-956B-AA72A144E53C}
+		{B9D27D5D-0B74-438C-A408-A2634540AC11} = {DAE8C222-A82C-480B-956B-AA72A144E53C}
+		{204DD650-7801-4813-9942-6AE32EAD99E2} = {DAE8C222-A82C-480B-956B-AA72A144E53C}
+		{80477E8F-099E-48CF-939F-7B446C97985E} = {DAE8C222-A82C-480B-956B-AA72A144E53C}
 	EndGlobalSection
 EndGlobal
