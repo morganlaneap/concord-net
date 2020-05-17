@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Dynamic;
+using ConcordNet;
 using ConcordNet.Interfaces;
 
 namespace ConsumerApi.ConcordTests.ConsumerTests
@@ -14,6 +15,9 @@ namespace ConsumerApi.ConcordTests.ConsumerTests
 
         public ExampleApiFixture()
         {
+            var config = new ConcordGeneratorConfig {ContractDirectory = "C:/temp/pacts"};
+            ConcordGenerator = new ConcordGenerator(config);
+            ConcordGenerator.ServiceConsumer("ConsumerApi").HasPactWith("ExampleApi");
             MockProviderService = ConcordGenerator.MockService(port);
         }
         
