@@ -14,7 +14,7 @@ namespace ConcordNet.UnitTests
         [Test]
         public void GivenATest_TheContractGeneratorCreatesAFile()
         {
-            var tempDir = $"C:/temp/pacts/{Guid.NewGuid().ToString()}";
+            var tempDir = $"../../../pacts/{Guid.NewGuid().ToString()}";
             var config = new ConcordGeneratorConfig()
             {
                 ContractDirectory = tempDir
