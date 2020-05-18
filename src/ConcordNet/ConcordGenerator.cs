@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ConcordNet.Interfaces;
+using ConcordNet.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -78,10 +79,17 @@ namespace ConcordNet
                     OverrideSpecifiedNames = false
                 }
             };
-
+            
+            
             var contracts = _providerService.GetContracts();
+            var contractDefinition = new ContractDefinition()
+            {
+                Provider = provider,
+                Consumer = consumer,
+                Contracts = contracts
+            };
             File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
-                JsonConvert.SerializeObject(contracts,
+                JsonConvert.SerializeObject(contractDefinition,
                     new JsonSerializerSettings()
                     {
                         ContractResolver = contractResolver,
