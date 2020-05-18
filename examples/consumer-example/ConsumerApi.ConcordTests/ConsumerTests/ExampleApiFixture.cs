@@ -17,7 +17,7 @@ namespace ConsumerApi.ConcordTests.ConsumerTests
         {
             var config = new ConcordGeneratorConfig {ContractDirectory = "../../..//pacts"};
             ConcordGenerator = new ConcordGenerator(config);
-            ConcordGenerator.ServiceConsumer("ConsumerApi").HasPactWith("ExampleApi");
+            ConcordGenerator.ServiceConsumer("ConsumerApi").HasContractWith("ExampleApi");
             MockProviderService = ConcordGenerator.MockService(port);
         }
         

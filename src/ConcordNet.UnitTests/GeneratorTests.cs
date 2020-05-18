@@ -20,7 +20,7 @@ namespace ConcordNet.UnitTests
                 ContractDirectory = tempDir
             };
             var gen = new ConcordGenerator(config);
-            gen.ServiceConsumer("consumer1").HasPactWith("provider1");
+            gen.ServiceConsumer("consumer1").HasContractWith("provider1");
             var mockSvc = gen.MockService(4099);
             mockSvc.Given("A Test").UponReceiving("Some Scenario").With(new ContractRequest(){Url = "/abcd",Method = "GET"}).WillRespondWith(new ContractResponse(){StatusCode = HttpStatusCode.OK});
             gen.Generate();

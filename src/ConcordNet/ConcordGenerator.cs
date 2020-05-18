@@ -13,8 +13,8 @@ namespace ConcordNet
     {
         private string contractDirectory;
         
-        private string Consumer;
-        private string Provider;
+        private string consumer;
+        private string provider;
         
         private IMockProviderService _providerService;
 
@@ -40,22 +40,16 @@ namespace ConcordNet
 
         public IConcordGenerator ServiceConsumer(string ServiceConsumer)
         {
-            Consumer = ServiceConsumer;
+            consumer = ServiceConsumer;
             return this;
         }
 
         public IConcordGenerator HasContractWith(string providerService)
         {
-            Provider = providerService;
+            provider = providerService;
             return this;
         }
 
-        [Obsolete]
-        public IConcordGenerator HasPactWith(string providerService)
-        {
-            Provider = providerService;
-            return this;
-        }
 
         public void Generate()
         {
@@ -64,18 +58,18 @@ namespace ConcordNet
                 throw new Exception("Mock the provider service");
             }
 
-            if (string.IsNullOrEmpty(Consumer))
+            if (string.IsNullOrEmpty(consumer))
             {
                 throw new Exception("Define the service");
             }
 
-            if (string.IsNullOrEmpty(Provider))
+            if (string.IsNullOrEmpty(provider))
             {
                 throw new Exception("Define the provider");
             }
 
             var contracts = _providerService.GetContracts();
-            File.WriteAllText($"{contractDirectory}{Consumer}-{Provider}.json", JsonSerializer.Serialize(contracts));
+            File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json", JsonSerializer.Serialize(contracts));
         }
     }
 }
