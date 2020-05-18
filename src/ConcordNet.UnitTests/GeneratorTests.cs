@@ -26,8 +26,8 @@ namespace ConcordNet.UnitTests
             gen.Generate();
 
             var lines = File.ReadAllText(tempDir+"/consumer1-provider1.json");
-            var obj = JsonConvert.DeserializeObject<List<Contract>>(lines);
-            Assert.That(obj.GetType() == typeof(List<Contract>));
+            var obj = JsonConvert.DeserializeObject<ContractDefinition>(lines);
+            Assert.That(obj.GetType() == typeof(ContractDefinition));
             
             CleanUpDirectory(tempDir);
             
