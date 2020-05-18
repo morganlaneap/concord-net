@@ -11,7 +11,7 @@ namespace ConcordNet.Models
         public HttpStatusCode StatusCode { get; set; }
         
         [JsonProperty("headers")]
-        public IEnumerable<string> Headers { get; set; }
+        public Dictionary<string,string> Headers { get; set; }
         
         [JsonProperty("body")]
         public object Body { get; set; }
