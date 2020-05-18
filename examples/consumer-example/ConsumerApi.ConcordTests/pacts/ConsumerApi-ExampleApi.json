@@ -1,1 +1,20 @@
-[{"Name":"A Test","Scenario":"Some State","Request":{"Url":"/data","Method":"GET"},"Response":{"StatusCode":200,"Headers":null,"Body":[{"Id":"5","Color":"blue"}]}}]
+[
+  {
+    "name": "A Test",
+    "scenario": "Some State",
+    "request": {
+      "url": "/data",
+      "method": "GET"
+    },
+    "response": {
+      "statusCode": 200,
+      "headers": null,
+      "body": [
+        {
+          "id": "5",
+          "color": "blue"
+        }
+      ]
+    }
+  }
+]

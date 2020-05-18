@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Text.Json;
 using ConcordNet.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ConcordNet
 {
@@ -9,13 +10,14 @@ namespace ConcordNet
     {
         public string ContractDirectory { get; set; }
     }
+
     public class ConcordGenerator : IConcordGenerator
     {
         private string contractDirectory;
-        
+
         private string consumer;
         private string provider;
-        
+
         private IMockProviderService _providerService;
 
 
@@ -32,6 +34,7 @@ namespace ConcordNet
                 Directory.CreateDirectory(contractDirectory);
             }
         }
+
         public IMockProviderService MockService(int port)
         {
             _providerService = new MockProviderService(port);
@@ -68,8 +71,22 @@ namespace ConcordNet
                 throw new Exception("Define the provider");
             }
 
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy
+                {
+                    OverrideSpecifiedNames = false
+                }
+            };
+
             var contracts = _providerService.GetContracts();
-            File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json", JsonSerializer.Serialize(contracts));
+            File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
+                JsonConvert.SerializeObject(contracts,
+                    new JsonSerializerSettings()
+                    {
+                        ContractResolver = contractResolver,
+                        Formatting = Formatting.Indented
+                    }));
         }
     }
 }
