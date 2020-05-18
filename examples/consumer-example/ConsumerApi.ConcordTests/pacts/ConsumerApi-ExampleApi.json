@@ -1,20 +1,24 @@
-[
-  {
-    "name": "A Test",
-    "scenario": "Some State",
-    "request": {
-      "url": "/data",
-      "method": "GET"
-    },
-    "response": {
-      "statusCode": 200,
-      "headers": null,
-      "body": [
-        {
-          "id": "5",
-          "color": "blue"
-        }
-      ]
+{
+  "provider": "ExampleApi",
+  "consumer": "ConsumerApi",
+  "contracts": [
+    {
+      "name": "A Test",
+      "scenario": "Some State",
+      "request": {
+        "url": "/data",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 200,
+        "headers": null,
+        "body": [
+          {
+            "id": "5",
+            "color": "blue"
+          }
+        ]
+      }
     }
-  }
-]
+  ]
+}
