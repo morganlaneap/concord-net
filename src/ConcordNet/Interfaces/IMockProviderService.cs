@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ConcordNet.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ConcordNet.Interfaces
 {
@@ -14,5 +15,8 @@ namespace ConcordNet.Interfaces
         public IMockProviderService With(ContractRequest request);
 
         public void WillRespondWith(ContractResponse response);
+        public bool HasUnverifiedContracts { get; }
+        public IReadOnlyList<Contract> UnverifiedContracts { get; }
+        public IReadOnlyList<HttpRequest> UnmatchedRequests { get;  }
     }
 }

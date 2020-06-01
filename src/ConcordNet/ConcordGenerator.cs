@@ -81,22 +81,45 @@ namespace ConcordNet
                     OverrideSpecifiedNames = false
                 }
             };
-            
-            
-            var contracts = _providerService.GetContracts();
-            var contractDefinition = new ContractDefinition()
+
+            if (_providerService.HasUnverifiedContracts)
             {
-                Provider = provider,
-                Consumer = consumer,
-                Contracts = contracts
-            };
-            File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
-                JsonConvert.SerializeObject(contractDefinition,
-                    new JsonSerializerSettings()
-                    {
-                        ContractResolver = contractResolver,
-                        Formatting = Formatting.Indented
-                    }));
+                Console.WriteLine($"Unverfied Contract(s): ");
+                var unverifiedContracts = _providerService.UnverifiedContracts;
+                foreach (var contract in unverifiedContracts )
+                {
+                    Console.WriteLine(contract);    
+                }
+
+                var unmatchedRequests = _providerService.UnmatchedRequests;
+                if (unmatchedRequests.Count > 0)
+                {
+                    Console.WriteLine("Unmatched request(s):");
+                }
+                foreach (var request in unmatchedRequests)
+                {
+                    Console.WriteLine(request);
+                }
+            }
+            else
+            {
+                var contracts = _providerService.GetContracts();
+                var contractDefinition = new ContractDefinition()
+                {
+                    Provider = provider,
+                    Consumer = consumer,
+                    Contracts = contracts
+                };
+                File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
+                    JsonConvert.SerializeObject(contractDefinition,
+                        new JsonSerializerSettings()
+                        {
+                            ContractResolver = contractResolver,
+                            Formatting = Formatting.Indented
+                        }));
+            }
+                
+            
         }
     }
 }
