@@ -19,11 +19,13 @@ namespace ConcordNet
         private string consumer;
         private string provider;
 
+        private IMockProviderServiceFactory _mockProviderServiceFactory;
         private IMockProviderService _providerService;
 
 
-        public ConcordGenerator(ConcordGeneratorConfig config)
+        public ConcordGenerator(ConcordGeneratorConfig config,IMockProviderServiceFactory mockProviderServiceFactory = null)
         {
+            _mockProviderServiceFactory =  mockProviderServiceFactory ?? new DefaultMockProviderServiceFactory();
             contractDirectory = config.ContractDirectory;
             if (!contractDirectory.EndsWith("/"))
             {
@@ -38,7 +40,7 @@ namespace ConcordNet
 
         public IMockProviderService MockService(int port)
         {
-            _providerService = new MockProviderService(port);
+            _providerService = _mockProviderServiceFactory.GetMockProviderService(port);
             return _providerService;
         }
 
