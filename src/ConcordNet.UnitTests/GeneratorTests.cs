@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using ConcordNet.Models;
@@ -10,7 +11,7 @@ namespace ConcordNet.UnitTests
     public class GeneratorTests
     {
         [Test]
-        public void GivenATest_TheContractGeneratorCreatesAFile()
+        public void GivenATest_AndTheProviderIsCalled_TheContractGeneratorCreatesAFile()
         {
             var tempDir = $"../../../pacts/{Guid.NewGuid().ToString()}";
             var config = new ConcordGeneratorConfig()
@@ -18,9 +19,10 @@ namespace ConcordNet.UnitTests
                 ContractDirectory = tempDir
             };
             var mockProviderServiceFactory = new TestMockProviderServiceFactory();
-            mockProviderServiceFactory.mockedMockProviderService.Setup(c => c.GetContracts());
-            var gen = new ConcordGenerator(config,mockProviderServiceFactory);
-            
+            mockProviderServiceFactory.mockedMockProviderService
+                .Setup(c => c.HasUnverifiedContracts).Returns(false);
+            var gen = new ConcordGenerator(config, mockProviderServiceFactory);
+
             gen.ServiceConsumer("consumer1").HasContractWith("provider1");
             var mockSvc = gen.MockService(43173);
             mockSvc.Given("A Test").UponReceiving("Some Scenario")
@@ -47,13 +49,17 @@ namespace ConcordNet.UnitTests
             {
                 ContractDirectory = tempDir
             };
-            var gen = new ConcordGenerator(config);
+            var mockProviderServiceFactory = new TestMockProviderServiceFactory();
+            mockProviderServiceFactory.mockedMockProviderService
+                .Setup(c => c.HasUnverifiedContracts).Returns(true);
+            mockProviderServiceFactory.mockedMockProviderService
+                .Setup(c => c.UnverifiedContracts).Returns(new List<Contract> {new Contract() { }});
+            var gen = new ConcordGenerator(config, mockProviderServiceFactory);
             gen.ServiceConsumer("consumer1").HasContractWith("provider1");
             var mockSvc = gen.MockService(43173);
             mockSvc.Given("A Test").UponReceiving("Some Scenario")
                 .With(new ContractRequest() {Url = "/abcd", Method = "GET"})
                 .WillRespondWith(new ContractResponse() {StatusCode = HttpStatusCode.OK});
-
 
             gen.Generate();
             Assert.That(File.Exists(tempDir + "/consumer1-provider1.json") == false);
