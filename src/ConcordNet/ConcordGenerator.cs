@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ConcordNet.Exceptions;
 using ConcordNet.Interfaces;
 using ConcordNet.Models;
 using Newtonsoft.Json;
@@ -19,11 +20,13 @@ namespace ConcordNet
         private string consumer;
         private string provider;
 
+        private IMockProviderServiceFactory _mockProviderServiceFactory;
         private IMockProviderService _providerService;
 
 
-        public ConcordGenerator(ConcordGeneratorConfig config)
+        public ConcordGenerator(ConcordGeneratorConfig config,IMockProviderServiceFactory mockProviderServiceFactory = null)
         {
+            _mockProviderServiceFactory =  mockProviderServiceFactory ?? new DefaultMockProviderServiceFactory();
             contractDirectory = config.ContractDirectory;
             if (!contractDirectory.EndsWith("/"))
             {
@@ -38,7 +41,7 @@ namespace ConcordNet
 
         public IMockProviderService MockService(int port)
         {
-            _providerService = new MockProviderService(port);
+            _providerService = _mockProviderServiceFactory.GetMockProviderService(port);
             return _providerService;
         }
 
@@ -79,22 +82,47 @@ namespace ConcordNet
                     OverrideSpecifiedNames = false
                 }
             };
-            
-            
-            var contracts = _providerService.GetContracts();
-            var contractDefinition = new ContractDefinition()
+
+            if (_providerService.HasUnverifiedContracts)
             {
-                Provider = provider,
-                Consumer = consumer,
-                Contracts = contracts
-            };
-            File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
-                JsonConvert.SerializeObject(contractDefinition,
-                    new JsonSerializerSettings()
-                    {
-                        ContractResolver = contractResolver,
-                        Formatting = Formatting.Indented
-                    }));
+                Console.WriteLine($"Unverfied Contract(s): ");
+                var unverifiedContracts = _providerService.UnverifiedContracts;
+                foreach (var contract in unverifiedContracts )
+                {
+                    Console.WriteLine(contract);    
+                }
+
+                var unmatchedRequests = _providerService.UnmatchedRequests;
+                if (unmatchedRequests.Count > 0)
+                {
+                    Console.WriteLine("Unmatched request(s):");
+                }
+                foreach (var request in unmatchedRequests)
+                {
+                    Console.WriteLine(request);
+                }
+
+                throw new UnverifiedContractsException();
+            }
+            else
+            {
+                var contracts = _providerService.GetContracts();
+                var contractDefinition = new ContractDefinition()
+                {
+                    Provider = provider,
+                    Consumer = consumer,
+                    Contracts = contracts
+                };
+                File.WriteAllText($"{contractDirectory}{consumer}-{provider}.json",
+                    JsonConvert.SerializeObject(contractDefinition,
+                        new JsonSerializerSettings()
+                        {
+                            ContractResolver = contractResolver,
+                            Formatting = Formatting.Indented
+                        }));
+            }
+                
+            
         }
     }
 }

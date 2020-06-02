@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Contract = ConcordNet.Models.Contract;
 
 namespace ConcordNet
 {
@@ -18,10 +17,11 @@ namespace ConcordNet
         private readonly IHost _host;
         public int Port = 4001;
         public string BaseAddress => $"http://localhost:{Port}/";
-        
-        private IList<Contract> contracts;
 
-        private Contract buildingContract;
+
+        private IDictionary<Contract, int> _contracts { get; set; }
+        private Contract _buildingContract;
+        private List<HttpRequest> _unmatchedRequests { get; }
 
         public MockProviderService(int port)
         {
@@ -37,52 +37,55 @@ namespace ConcordNet
                 });
             }).Build();
             _host.RunAsync();
-            buildingContract = new Contract();
-            contracts = new List<Contract>();
+            _buildingContract = new Contract();
+            _contracts = new Dictionary<Contract, int>();
+            _unmatchedRequests = new List<HttpRequest>();
         }
 
         public IMockProviderService Given(string name)
         {
-            if (!string.IsNullOrEmpty(buildingContract.Name))
+            if (!string.IsNullOrEmpty(_buildingContract.Name))
             {
-                throw new Exception($"Finish contract with WillRespondWith on {buildingContract.Name}");
+                throw new Exception($"Finish contract with WillRespondWith on {_buildingContract.Name}");
             }
 
-            buildingContract.Name = name;
+            _buildingContract.Name = name;
             return this;
         }
 
         public IMockProviderService UponReceiving(string scenario)
         {
-            if (!string.IsNullOrEmpty(buildingContract.Scenario))
+            if (!string.IsNullOrEmpty(_buildingContract.Scenario))
             {
-                throw new Exception($"Finish contract with WillRespondWith on {buildingContract.Scenario}");
+                throw new Exception($"Finish contract with WillRespondWith on {_buildingContract.Scenario}");
             }
 
-            buildingContract.Scenario = scenario;
+            _buildingContract.Scenario = scenario;
             return this;
         }
 
         public IMockProviderService With(ContractRequest request)
         {
-            if (buildingContract.Request != null)
+            if (_buildingContract.Request != null)
             {
-                throw new Exception($"Finish contract with WillRespondWith on {buildingContract.Request.Url}");
+                throw new Exception($"Finish contract with WillRespondWith on {_buildingContract.Request.Url}");
             }
 
-            buildingContract.Request = request;
+            _buildingContract.Request = request;
             return this;
         }
 
         public void WillRespondWith(ContractResponse response)
         {
-            if (buildingContract.Request == null)
+            if (_buildingContract.Request == null)
             {
                 throw new Exception("Request not defined for response");
             }
-            buildingContract.Response = response;
-            contracts.Add(buildingContract);
-            buildingContract = new Contract();
+
+            _buildingContract.Response = response;
+
+            _contracts.Add(_buildingContract, 0);
+            _buildingContract = new Contract();
         }
 
 
@@ -92,12 +95,13 @@ namespace ConcordNet
             if (contract == null)
             {
                 context.Response.StatusCode = 404;
+                _unmatchedRequests.Add(context.Request);
                 await context.Response.CompleteAsync();
             }
             else
             {
                 context.Response.StatusCode = (int) contract.Response.StatusCode;
-                
+
                 if (contract.Response.Headers != null)
                 {
                     foreach (var header in contract.Response.Headers)
@@ -110,13 +114,16 @@ namespace ConcordNet
                 {
                     await context.Response.CompleteAsync();
                 }
+
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(contract.Response.Body));
+
+                _contracts[contract]++;
             }
         }
 
         private Contract FindContract(HttpContext context)
         {
-            return contracts.FirstOrDefault(c => ContractMatches(c.Request, context.Request));
+            return _contracts.Keys.FirstOrDefault(c => ContractMatches(c.Request, context.Request));
         }
 
         private bool ContractMatches(ContractRequest contract, HttpRequest request)
@@ -131,7 +138,14 @@ namespace ConcordNet
 
         public IEnumerable<Contract> GetContracts()
         {
-            return contracts;
+            return _contracts.Keys;
         }
+
+        public bool HasUnverifiedContracts => UnverifiedContracts.Count > 0;
+
+        public IReadOnlyList<Contract> UnverifiedContracts =>
+            _contracts.Where(c => c.Value == 0)?.ToDictionary(c => c.Key, c => c.Value).Keys.ToList();
+
+        public IReadOnlyList<HttpRequest> UnmatchedRequests => _unmatchedRequests;
     }
 }
