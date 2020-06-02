@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ConcordNet.Exceptions;
 using ConcordNet.Interfaces;
 using ConcordNet.Models;
 using Newtonsoft.Json;
@@ -100,6 +101,8 @@ namespace ConcordNet
                 {
                     Console.WriteLine(request);
                 }
+
+                throw new UnverifiedContractsException();
             }
             else
             {

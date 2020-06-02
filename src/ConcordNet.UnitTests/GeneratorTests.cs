@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using ConcordNet.Exceptions;
 using ConcordNet.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -31,7 +32,6 @@ namespace ConcordNet.UnitTests
                     {
                         StatusCode = HttpStatusCode.OK
                     });
-
             gen.Generate();
 
             var lines = File.ReadAllText(tempDir + "/consumer1-provider1.json");
@@ -61,7 +61,8 @@ namespace ConcordNet.UnitTests
                 .With(new ContractRequest() {Url = "/abcd", Method = "GET"})
                 .WillRespondWith(new ContractResponse() {StatusCode = HttpStatusCode.OK});
 
-            gen.Generate();
+            
+            Assert.Throws<UnverifiedContractsException>(() => gen.Generate());
             Assert.That(File.Exists(tempDir + "/consumer1-provider1.json") == false);
 
             CleanUpDirectory(tempDir);
